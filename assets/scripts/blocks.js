@@ -7,18 +7,18 @@ $(document).ready(function () {
   });
 });
 
-Blockly.Blocks["example_input_text"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField("Example Block:")
-      .appendField(new Blockly.FieldTextInput("write here..."), "input");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  },
-};
+// Blockly.Blocks["example_input_text"] = {
+//   init: function () {
+//     this.appendDummyInput()
+//       .appendField("Example Block:")
+//       .appendField(new Blockly.FieldTextInput("write here..."), "input");
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(230);
+//     this.setTooltip("");
+//     this.setHelpUrl("");
+//   },
+// };
 Blockly.Blocks['bot'] = {
   init: function() {
     this.appendStatementInput("BOT")
@@ -42,14 +42,7 @@ Blockly.Blocks['ask_me_a_question_'] = {
   }
 };
 
-Blockly.JavaScript["example_input_text"] = function (block) {
-  var text_input = block.getFieldValue("input");
 
-  var code = `
-	var inputTextValue = "${text_input}";
-  `;
-  // return code;
-};
 Blockly.JavaScript['bot'] = function(block) {
   var statements_bot = Blockly.JavaScript.statementToCode(block, 'BOT');
   // TODO: Assemble JavaScript into code variable.
