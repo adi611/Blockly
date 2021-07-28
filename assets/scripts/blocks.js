@@ -7,18 +7,7 @@ $(document).ready(function () {
   });
 });
 
-// Blockly.Blocks["example_input_text"] = {
-//   init: function () {
-//     this.appendDummyInput()
-//       .appendField("Example Block:")
-//       .appendField(new Blockly.FieldTextInput("write here..."), "input");
-//     this.setPreviousStatement(true, null);
-//     this.setNextStatement(true, null);
-//     this.setColour(230);
-//     this.setTooltip("");
-//     this.setHelpUrl("");
-//   },
-// };
+
 Blockly.Blocks['bot'] = {
   init: function() {
     this.appendStatementInput("BOT")
