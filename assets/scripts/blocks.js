@@ -55,6 +55,8 @@ function redrawUi() {
   } else {
     $("#inputBox").text("");
   }
+  // $("g.blocklyDraggable").remove();
+  workspace.clear();
 }
 
 function runcode() {
