@@ -13,7 +13,6 @@ Blockly.Blocks['bot'] = {
     this.appendStatementInput("BOT")
         .setCheck(null)
         .appendField("Bot");
-    this.setNextStatement(true, null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
