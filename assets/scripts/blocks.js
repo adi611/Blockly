@@ -35,13 +35,10 @@ Blockly.Blocks['ask_me_a_question_'] = {
 
 Blockly.JavaScript['bot'] = function(block) {
   var statements_bot = Blockly.JavaScript.statementToCode(block, 'BOT');
-  // TODO: Assemble JavaScript into code variable.
-  // var code = 'Statements:'+ statements_bot;
-  return "";
+  return "redrawUi(0);";
 };
 Blockly.JavaScript['ask_me_a_question_'] = function(block) {
   var dropdown_dropdown = block.getFieldValue('DROPDOWN');
-  // TODO: Assemble JavaScript into code variable.
   var answer = [getDate(),
                 getTime(),
                 "I'm (not) fine",
@@ -95,11 +92,19 @@ function redrawUi(choice) {
 function runcode() {
   // Generate JavaScript code and run it.
   try {
-    eval(Blockly.JavaScript.workspaceToCode(Blockly.workspace));
+    let code = Blockly.JavaScript.workspaceToCode(Blockly.workspace);
+    eval(code);
+    if(code===""){
+      alert("First drag the Bot block from the toolbar");
+    }
+    else if(outputAnswer===""){
+      alert("Drag the dropdown block from the toolbar into"+
+            " the Bot block and then select one of the questions.");
+    }
   } catch (e) {
     console.error(e);
   }
-  redrawUi(0);
+  
 }
 
 function reset() {
