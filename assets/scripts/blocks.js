@@ -1,3 +1,4 @@
+// variable to store the answer to the selected dropdown option
 var outputAnswer = "";
 
 $(document).ready(function () {
@@ -9,7 +10,7 @@ $(document).ready(function () {
   });
 });
 
-
+// Blockly code for Bot block
 Blockly.Blocks['bot'] = {
   init: function() {
     this.appendStatementInput("BOT")
@@ -20,6 +21,8 @@ Blockly.Blocks['bot'] = {
  this.setHelpUrl("");
   }
 };
+
+// Blockly code for "Ask me a question" dropdown block
 Blockly.Blocks['ask_me_a_question_'] = {
   init: function() {
     this.appendDummyInput()
@@ -32,13 +35,21 @@ Blockly.Blocks['ask_me_a_question_'] = {
   }
 };
 
-
+// Blockly JS code for Bot block
 Blockly.JavaScript['bot'] = function(block) {
-  var statements_bot = Blockly.JavaScript.statementToCode(block, 'BOT');
+  Blockly.JavaScript.statementToCode(block, 'BOT');
+
+  // execute redrawUi(0) from the returned code so that dropdown doesn't work w/o it
   return "redrawUi(0);";
 };
+
+// Blockly JS code for "Ask me a question" dropdown block
 Blockly.JavaScript['ask_me_a_question_'] = function(block) {
+
+  // dropdown_dropdown stores values from 0 to 4 representing the selected dropdown option
   var dropdown_dropdown = block.getFieldValue('DROPDOWN');
+
+  // answer array contains answers to each dropdown in order
   var answer = [getDate(),
                 getTime(),
                 "I'm (not) fine",
@@ -52,6 +63,8 @@ Blockly.JavaScript['ask_me_a_question_'] = function(block) {
                 "two of which are (HTML and CSS)",
                 "My name is Adi"];
   
+  
+  // stores answer to show to the user
   outputAnswer = answer[dropdown_dropdown];
   return "";
 };
@@ -61,6 +74,7 @@ var workspace = Blockly.inject("blocklyDiv", {
   toolbox: document.getElementById("toolbox"),
 });
 
+// Get the current date
 function getDate() {
   var today = new Date();
   var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
@@ -69,6 +83,7 @@ function getDate() {
 
 }
 
+// Get the current time
 function getTime() {
   var today = new Date();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -77,6 +92,9 @@ function getTime() {
 
 }
 
+// Here choice param tells us from where redrawUi() is called
+// choice == 0 => Run ; choice == 1 => Reset
+// As such clear workspace when Reset is clicked => choice == 1
 function redrawUi(choice) {
   if (outputAnswer !== "") {
     $("#inputBox").text(outputAnswer);
@@ -94,13 +112,18 @@ function runcode() {
   try {
     let code = Blockly.JavaScript.workspaceToCode(Blockly.workspace);
     eval(code);
+
+    // If code is "" => Bot block is not dragged into the workspace
     if(code===""){
       alert("First drag the Bot block from the toolbar");
     }
+
+    // Else if outputAnswer is "" => Bot block is dragged but dropdown block is not
     else if(outputAnswer===""){
       alert("Drag the dropdown block from the toolbar into"+
             " the Bot block and then select one of the questions.");
     }
+
   } catch (e) {
     console.error(e);
   }
@@ -108,6 +131,6 @@ function runcode() {
 }
 
 function reset() {
-  outputAnswer = "";
+  outputAnswer = "";  // Re-initialize outputAnswer to "" on Reset
   redrawUi(1);
 }
